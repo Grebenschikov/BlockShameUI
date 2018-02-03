@@ -18,22 +18,9 @@
 </template>
 
 <script>
+import
 export default {
-  data(){
-    return {
-      state:{
-        block:"",
-        nonce:"",
-        data:"",
-        hash:""
-      }
-    }
-  },
-  methods:{
-    mine(){
-      console.log('mining');
-    }
-  }
+  props: ['state'],
 }
 </script>
 
