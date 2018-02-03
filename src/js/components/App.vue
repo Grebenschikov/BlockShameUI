@@ -31,9 +31,17 @@
 <script>
 import Hash from './Hash.vue';
 import Block from './Block.vue';
+// Когда мы добавляем новый компонент мы его сюда импортим
+// типо как бля
+// import BlockChain from './${выпоняли}';
+
+//
 export default {
+  // затем компонент надо подключить к Vue
+  // сделать это надо ниже
   components:{
     Hash, Block
+    //, BlockChain
   },
   data(){
     return {
@@ -44,9 +52,19 @@ export default {
           data:"",
           hash:""
         },
-        block: {
+        Block: {
 
+        },
+        // Последнее что нужно сделать,
+        // это обозначть необходимый кусок глобального состояния
+        // прямо вот тут
+        /* BlockChain: {
+          prop1: "nachalnoe_znachenie",
+          prop2: "ewe_nachalnoe_znachenie",
+          ITD..
         }
+        */
+      }
       }
     }
   },

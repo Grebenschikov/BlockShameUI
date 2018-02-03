@@ -21,6 +21,7 @@
 import blockshame from 'blockshame';
 let hash = new blockshame.Hash();
 export default {
+  // это как ViewDidLoad()
   mounted(){
     this.updateHash();
   },
@@ -33,10 +34,12 @@ export default {
       this.$props.state.hash = this.calcHash();
     }
   },
+  // штука называется СМОТРЯЩИЙ
+
   watch: {
-  	'state.data': function(newVal, oldVal) {
+  	'state.data': function() {
       this.updateHash();
-    }
+    },
   }
 }
 </script>
