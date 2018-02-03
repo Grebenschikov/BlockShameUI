@@ -18,9 +18,26 @@
 </template>
 
 <script>
-import
+import blockshame from 'blockshame';
+let hash = new blockshame.Hash();
 export default {
+  mounted(){
+    this.updateHash();
+  },
   props: ['state'],
+  methods: {
+    calcHash(){
+      return hash.calculateHash(this.$props.state.data);
+    },
+    updateHash(){
+      this.$props.state.hash = this.calcHash();
+    }
+  },
+  watch: {
+  	'state.data': function(newVal, oldVal) {
+      this.updateHash();
+    }
+  }
 }
 </script>
 

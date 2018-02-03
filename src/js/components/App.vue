@@ -41,8 +41,8 @@ export default {
       pages:[ 'Hash', 'Block', 'BlockChain', 'Distributed', 'Tokens', 'Coinbase'],
       state:{
         Hash: {
-          data:"daaaaa",
-          hash:"haaaaa"
+          data:"",
+          hash:""
         },
         block: {
 

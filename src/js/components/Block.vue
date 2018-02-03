@@ -27,7 +27,7 @@
       </div>
       <div class="form-group row">
         <div class="col-md-10 col-md-offset-2">
-          <input type="submit" name="" value="Mine" class="btn btn-primary btn-md">
+          <input type="submit" name="" value="Fix" class="btn btn-primary btn-md">
         </div>
       </div>
     </fieldset>
@@ -48,7 +48,7 @@ export default {
   },
   methods:{
     mine(){
-      console.log('mining');
+      console.log('Fixing');
     }
   }
 }
