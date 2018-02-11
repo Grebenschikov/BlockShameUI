@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="container">
+    <div class="">
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -31,30 +31,29 @@
 <script>
 import Hash from './Hash.vue';
 import Block from './Block.vue';
+import BlockChain from './BlockChain.vue';
 // Когда мы добавляем новый компонент мы его сюда импортим
 // типо как бля
-// import BlockChain from './${выпоняли}';
 
 //
 export default {
   // затем компонент надо подключить к Vue
   // сделать это надо ниже
   components:{
-    Hash, Block
+    Hash, Block, BlockChain
     //, BlockChain
   },
   data(){
     return {
-      pageName: "Hash",
+      pageName: "BlockChain",
       pages:[ 'Hash', 'Block', 'BlockChain', 'Distributed', 'Tokens', 'Coinbase'],
       state:{
         Hash: {
           data:"",
           hash:""
         },
-        Block: {
-
-        },
+        Block: {},
+        BlockChain:{}
         // Последнее что нужно сделать,
         // это обозначть необходимый кусок глобального состояния
         // прямо вот тут

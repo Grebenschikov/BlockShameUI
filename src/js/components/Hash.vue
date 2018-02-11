@@ -18,8 +18,9 @@
 </template>
 
 <script>
-import blockshame from 'blockshame';
-let hash = new blockshame.Hash();
+import {Hash} from '../blockshame';
+console.log(Hash);
+let hash = new Hash();
 export default {
   // это как ViewDidLoad()
   mounted(){

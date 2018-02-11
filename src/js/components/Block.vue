@@ -1,25 +1,25 @@
 <template lang="html">
-  <form class="form-horizontal" @submit.prevent="mine()">
+  <form class="form-horizontal" @submit.prevent="fix()">
     <fieldset>
       <div class="form-group">
         <label for="textArea" class="col-lg-2 control-label">Block</label>
         <div class="col-lg-10">
-          <input type="text" class="form-control" v-model="state.block">
+          <input type="text" class="form-control" v-model="state.block" @keyup="dataDidChange">
         </div>
       </div>
       <div class="form-group">
         <label for="textArea" class="col-lg-2 control-label">Nonce</label>
         <div class="col-lg-10">
-          <input type="text" class="form-control" v-model="state.nonce">
+          <input type="text" class="form-control" v-model="state.nonce" @keyup="dataDidChange">
         </div>
       </div>
       <div class="form-group">
         <label for="textArea" class="col-lg-2 control-label">Data</label>
         <div class="col-lg-10">
-          <textarea class="form-control" rows="3" id="textArea" v-model="state.data"></textarea>
+          <textarea class="form-control" rows="3" id="textArea" v-model="state.data" @keyup="dataDidChange"></textarea>
         </div>
       </div>
-      <div class="form-group">
+      <div :class='"form-group " + (this.isHashCorrect?"":"has-error")'>
         <label for="textArea" class="col-lg-2 control-label">Hash</label>
         <div class="col-lg-10">
           <input type="text" class="form-control" v-model="state.hash" disabled="disabled">
@@ -35,6 +35,9 @@
 </template>
 
 <script>
+import {Hash} from '../blockshame';
+let hash = new Hash();
+
 // Дальше в этом контексте будут доступны аргументы, которые мы передали в
 // App
 // они будут доступны через this.$props.state
@@ -43,16 +46,27 @@ export default {
   data(){
     return {
       state:{
-        block:"",
-        nonce:"",
-        data:"",
+        block:"1",
+        nonce:"10",
+        data:"Петя передал коле 5 бетховенов, коля оставил в парке закладку с веществами",
         hash:""
-      }
+      },
+      isHashCorrect : true
     }
   },
+  mounted(){
+    this.fix();
+  },
   methods:{
-    mine(){
-      console.log('Fixing');
+    fix(){
+        this.state.hash = this.calcHash();
+        this.dataDidChange();
+    },
+    calcHash(){
+      return hash.calculateHash(`${this.state.block}${this.state.nonce}${this.state.data}`);
+    },
+    dataDidChange(){
+      this.isHashCorrect = this.calcHash() === this.state.hash ;
     }
   }
 }
