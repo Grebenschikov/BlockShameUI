@@ -8,7 +8,7 @@ class Blockchain {
 	}
 
 	createGenesisBlock() {
-		let block = new Block(0, Moment().format('YYYY-MM-DD HH:mm:ss'), "Genesis block", "0");
+		let block = new Block(0, Moment().format('YYYY-MM-DD HH:mm:ss'), "Genesis block",()=>true);
 		block.hash = block.calculateHash();
 		return [block];
 	}

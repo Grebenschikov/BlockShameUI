@@ -35,7 +35,7 @@ class Block {
 	}
 
 	isBlockValid(){
-		return this.hashValidationClosure(this.hash) ;
+		return this.hashValidationClosure(this.hash);
 	}
 
 	isHashValid(){
