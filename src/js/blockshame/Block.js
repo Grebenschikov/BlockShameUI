@@ -34,6 +34,10 @@ class Block {
 		return hash.calculateHash(this.index+this.timestamp+this.data+this.previousHash+this.nonce);
 	}
 
+	isBlockValid(){
+		return this.hashValidationClosure(this.hash) ;
+	}
+
 	isHashValid(){
 		return this.hash === this.calculateHash();
 	}
