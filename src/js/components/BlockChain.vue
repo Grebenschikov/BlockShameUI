@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="">
   <div class="longRow">
-    <form :class='"form-horizontal BlockChainCol "+((block.isBlockValid() || false)?"bcbg-success":"bcbg-warning")' v-for="block,i in state.blocks">
+    <form :class='"form-horizontal BlockChainCol "+((block.isBlockValid() || false)?"bcbg-success":"bcbg-warning")' v-for="block,i in state.blocks" @submit.prevent='mine(i)'>
       <fieldset>
         <div class="form-group">
           <label for="textArea" class="col-lg-4 control-label">Height</label>
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group row">
           <div class="col-md-10 col-md-offset-2">
-            <input type="submit" name="" value="Mine" class="btn btn-primary btn-md" @click='mine(i)'>
+            <input type="submit" name="" value="Mine" class="btn btn-primary btn-md" @click.prevent='mine(i)'>
           </div>
         </div>
       </fieldset>
