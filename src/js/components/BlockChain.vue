@@ -48,15 +48,15 @@
     </form>
   </div>
   <div class="container row">
-    <form class="form-horizontal col-md-6" @submit.prevent="fix()">
+    <form class="form-horizontal col-md-6" @submit.prevent="reloadData()">
       <fieldset>
         <div class="form-group">
           <label for="textArea" class="col-lg-2 control-label">Number of zeros</label>
           <div class="col-lg-4">
-            <input type="text" class="form-control" v-model='state.numZeros'>
+            <input type="text" class="form-control" v-model='numZeros'>
           </div>
           <div class="col-md-2">
-            <input type="submit" name="" value="Apply" class="btn btn-primary btn-md" @click='reloadData()'>
+            <input type="submit" name="" value="Apply" class="btn btn-primary btn-md">
           </div>
         </div>
       </fieldset>
@@ -73,9 +73,9 @@ let hash = new Hash();
 export default {
   data(){
     return {
+      numberOfZeros:2,
       state:{
         blocks:[],
-        numZeros:2,
         blockchain:{}
       },
     }
@@ -83,16 +83,27 @@ export default {
   mounted(){
     this.state.blocks = this.generateChain();
   },
-
+  computed:{
+    numZeros:{
+      get:function(){
+        return this.numberOfZeros;
+      },
+      set:function(newVal){
+        if(Number(newVal) > 0){
+          this.numberOfZeros = Number(newVal);
+        }
+      }
+    }
+  },
   methods:{
     generateChain(){
       var ethalonString = "0x" ;
-      for (var i = 0; i < this.state.numZeros; i++) {
+      for (var i = 0; i < this.numZeros; i++) {
         ethalonString += "0" ;
       }
 
       const validationClosure = hash => {
-        var stringToInspect = hash.substring(0,2+this.state.numZeros);
+        var stringToInspect = hash.substring(0,2+this.numZeros);
         return stringToInspect === ethalonString ;
       }
 
