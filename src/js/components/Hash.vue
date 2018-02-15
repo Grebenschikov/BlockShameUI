@@ -19,24 +19,26 @@
 
 <script>
 import {Hash} from '../blockshame';
-console.log(Hash);
 let hash = new Hash();
 export default {
-  // это как ViewDidLoad()
+  data(){
+    return {
+      state:{
+        data:"",hash:""
+      }
+    }
+  },
   mounted(){
     this.updateHash();
   },
-  props: ['state'],
   methods: {
     calcHash(){
-      return hash.calculateHash(this.$props.state.data);
+      return hash.calculateHash(this.state.data);
     },
     updateHash(){
-      this.$props.state.hash = this.calcHash();
+      this.state.hash = this.calcHash();
     }
   },
-  // штука называется СМОТРЯЩИЙ
-
   watch: {
   	'state.data': function() {
       this.updateHash();
@@ -44,6 +46,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>
