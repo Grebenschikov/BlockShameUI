@@ -1,26 +1,38 @@
 import SHA256 from 'crypto-js/sha256';
 
 class Hash {
-  /*
-  процедура вычисления хеша - возвращает в 16 ричном формате мгновенный хеш блока
-  */
-  calculateHash(inputData) {
-    var hashObject = SHA256(inputData);
-    return this.getHexHashString(hashObject);
+  
+  constructor(inputData) {
+    this.hash = SHA256(inputData);
   }
-  /* ====
-    private
-   ==== */
-  /*
-    возвращает 16 ричное число с 0x в начале
-  */
-  getHexHashString(hashArray) {
-    return "0x" + hashArray.words.map(function(x) {
+
+  toString() {
+    return this.string || (this.string = "0x" + this.hash.words.map(function(x) {
       x = x + 0xFFFFFFFF + 1; // twos complement
       x = x.toString(16); // to hex
       x = ("00000000" + x).substr(-8); // zero-pad to 8-digits
       return x
-    }).join('');
+    }).join(''));
+  }
+
+  getWords() {
+    return this.hash.words;
+  }
+
+  equal(another) {
+    var current = this.getWords();
+    var another = another.getWords();
+    if (another.length !== current.length) {
+      return false;
+    }
+
+    for (var i = 0; i < current.length; i++) {
+      if (another[i] !== current[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 export default Hash;

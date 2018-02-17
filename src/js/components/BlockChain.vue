@@ -68,8 +68,6 @@
 <script>
 import blockshame, { Hash, BlockchainFabrique, Validator } from '../blockshame';
 
-let hash = new Hash();
-
 export default {
   data(){
     return {
@@ -97,14 +95,28 @@ export default {
   },
   methods:{
     generateChain(){
-      var ethalonString = "0x" ;
-      for (var i = 0; i < this.numZeros; i++) {
-        ethalonString += "0" ;
-      }
-
       const validationClosure = hash => {
-        var stringToInspect = hash.substring(0,2+this.numZeros);
-        return stringToInspect === ethalonString ;
+        var zeros = this.numZeros;
+        var words = hash.getWords();
+
+        for (let word of words) {
+          if (
+            // fast check, если первый бит равен 1 (то есть число отрицательное),
+            // значит слово не начинается с нуля
+            word < 0
+            ||
+            word > (16 ** (8 - zeros))
+          ) {
+            return false;
+          }
+
+          zeros -= 8;
+          if (zeros <= 0) {
+            return true;
+          }
+        }
+
+        return false;
       }
 
       var data = ["Петя пьет", "Миша колется", "Петя передал мише 5 бетховенов", "Дарья пишет письмо на зону", "Наташу отбуратинили в кафе"];
@@ -123,7 +135,9 @@ export default {
       validator.rebuildChain();
     },
     reloadData(){
+      console.time('calculate-chain');
       this.state.blocks = this.generateChain();
+      console.timeEnd('calculate-chain');
     }
   }
 }

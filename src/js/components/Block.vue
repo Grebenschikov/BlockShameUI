@@ -36,8 +36,6 @@
 
 <script>
 import {Hash} from '../blockshame';
-let hash = new Hash();
-
 // Дальше в этом контексте будут доступны аргументы, которые мы передали в
 // App
 // они будут доступны через this.$props.state
@@ -49,7 +47,7 @@ export default {
         block:"1",
         nonce:"10",
         data:"Петя передал коле 5 бетховенов, коля оставил в парке закладку с веществами",
-        hash:""
+        hash: null
       },
       isHashCorrect : true
     }
@@ -63,10 +61,10 @@ export default {
         this.dataDidChange();
     },
     calcHash(){
-      return hash.calculateHash(`${this.state.block}${this.state.nonce}${this.state.data}`);
+      return new Hash(`${this.state.block}${this.state.nonce}${this.state.data}`);
     },
     dataDidChange(){
-      this.isHashCorrect = this.calcHash() === this.state.hash ;
+      this.isHashCorrect = this.calcHash().equal(this.state.hash) ;
     }
   }
 }

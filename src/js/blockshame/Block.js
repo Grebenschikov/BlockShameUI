@@ -9,7 +9,7 @@ class Block {
 		this.data = data;
 		this.previousHash = "";
 		this.nonce = 0;
-		this.hash = "";
+		this.hash = this.calculateHash();
 		this.hashValidationClosure = hashValidationClosure ;
 	}
 
@@ -19,9 +19,9 @@ class Block {
 
 		while (true) {
 			this.nonce = nonceAccumulator ;
-			var hashString = this.calculateHash();
-			if ( this.hashValidationClosure(hashString) ){
-				this.hash = hashString ;
+			var hash = this.calculateHash();
+			if ( this.hashValidationClosure(hash) ){
+				this.hash = hash ;
 				break ;
 			}
 
@@ -30,8 +30,7 @@ class Block {
 	}
 
 	calculateHash(){
-		const hash = new Hash() ;
-		return hash.calculateHash(this.index+this.timestamp+this.data+this.previousHash+this.nonce);
+		return new Hash(this.index+this.timestamp+this.data+this.previousHash+this.nonce);
 	}
 
 	isBlockValid(){
@@ -39,7 +38,8 @@ class Block {
 	}
 
 	isHashValid(){
-		return this.hash === this.calculateHash();
+		return this.hash.equal(this.calculateHash());
 	}
 }
+
 export default Block;

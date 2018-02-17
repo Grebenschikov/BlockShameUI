@@ -19,12 +19,13 @@
 
 <script>
 import {Hash} from '../blockshame';
-let hash = new Hash();
+
 export default {
   data(){
     return {
       state:{
-        data:"",hash:""
+        data:"",
+        hash:null
       }
     }
   },
@@ -33,7 +34,7 @@ export default {
   },
   methods: {
     calcHash(){
-      return hash.calculateHash(this.state.data);
+      return new Hash(this.state.data);
     },
     updateHash(){
       this.state.hash = this.calcHash();
